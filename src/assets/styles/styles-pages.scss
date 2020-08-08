@@ -1,0 +1,85 @@
+.register {
+  .input-form {
+    display: flex;
+    flex-direction: column;
+    .label-form {
+      margin-top: 6px;
+      input {
+        margin-top: 8px;
+      }
+    }
+    textarea {
+      width: 100%;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding-left: 10px;
+      margin-bottom: 8px;
+      min-height: 90px;
+      height: 110px;
+    }
+    input {
+      width: 100%;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding-left: 10px;
+      margin-bottom: 8px;
+      height: 32px;
+    }
+    select {
+      width: 100%;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding-left: 10px;
+      margin-bottom: 8px;
+      height: 32px;
+    }
+    span {
+      color: #dc3545;
+      align-self: flex-start;
+      margin: 0 0 10px;
+    }
+  }
+  .complement-info{
+    align-items: center;
+  }
+  .input-sex {
+    display: flex;
+    flex-direction: column;
+    .input-radio {
+      margin-top: 4px;
+    }
+    label {
+      margin-right: 10px;
+      margin-left: 4px;
+    }
+  }
+  .button-submit {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    button {
+      &:first-child {
+        margin-right: 8px;
+      }
+      @media (max-width: 767px) {
+        &:first-child {
+          margin-right: 0;
+        }
+      }
+    }
+    .btn {
+      margin-top: 8px;
+      width: 300px;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
+  }
+}

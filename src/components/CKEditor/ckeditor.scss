@@ -1,0 +1,176 @@
+.k-ckeditor {
+  -webkit-overflow-scrolling: touch;
+  .k-ckeditor-small-icon {
+    width: 35px;
+    height: 25px;
+    & > img {
+      width: 20px;
+      height: 15px;
+      opacity: 0.7;
+      filter: grayscale(1) brightness(2);
+    }
+  }
+
+  .rdw-editor-wrapper {
+    display: -webkit-box;
+    display: -moz-box;
+    display: flexbox;
+
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    box-orient: vertical;
+    padding: 0 !important;
+  }
+
+  .rdw-editor-toolbar {
+    border: none !important;
+    padding: 0 !important;
+    -webkit-box-ordinal-group: 3;
+    -moz-box-ordinal-group: 3;
+    box-ordinal-group: 3;
+  }
+
+  .rdw-editor-main {
+    -webkit-box-ordinal-group: 2;
+    -moz-box-ordinal-group: 2;
+    box-ordinal-group: 2;
+    padding: 8px 16px 8px 16px;
+  }
+
+  .rdw-option-wrapper {
+    border: none !important;
+  }
+
+  .rdw-fontsize-dropdown {
+    box-shadow: none !important;
+    width: 50px;
+    height: 25px;
+  }
+
+  .rdw-fontfamily-dropdown {
+    box-shadow: none !important;
+    width: 120px;
+    height: 25px;
+  }
+
+  .rdw-dropdown-optionwrapper {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-face-color: #333333;
+  }
+
+  .rdw-emoji-modal {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-face-color: #333333;
+  }
+
+  .rdw-emoji-modal::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .rdw-emoji-modal::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+  }
+
+  .rdw-emoji-modal::-webkit-scrollbar-thumb {
+    background: #7d97ad;
+    border: 0 none #ffffff;
+    border-radius: 10px;
+  }
+
+  .rdw-emoji-modal::-webkit-scrollbar-button {
+    background: #666666;
+    border: 0 none #ffffff;
+    border-radius: 50px;
+  }
+
+  .rdw-emoji-modal::-webkit-scrollbar-track {
+    background: #666666;
+    border: 0 none #ffffff;
+    border-radius: 50px;
+  }
+
+  .rdw-emoji-modal::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  .rdw-emoji-modal::-webkit-scrollbar-track:hover {
+    background: #666666;
+  }
+
+  .rdw-emoji-modal::-webkit-scrollbar-track:active {
+    background: #333333;
+  }
+
+
+
+
+  .rdw-dropdown-optionwrapper::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .rdw-dropdown-optionwrapper::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+  }
+
+  .rdw-dropdown-optionwrapper::-webkit-scrollbar-thumb {
+    background: #7d97ad;
+    border: 0 none #ffffff;
+    border-radius: 10px;
+  }
+
+  .rdw-dropdown-optionwrapper::-webkit-scrollbar-button {
+    background: #666666;
+    border: 0 none #ffffff;
+    border-radius: 50px;
+  }
+
+  .rdw-dropdown-optionwrapper::-webkit-scrollbar-track {
+    background: #666666;
+    border: 0 none #ffffff;
+    border-radius: 50px;
+  }
+
+  .rdw-dropdown-optionwrapper::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  .rdw-dropdown-optionwrapper::-webkit-scrollbar-track:hover {
+    background: #666666;
+  }
+
+  .rdw-dropdown-optionwrapper::-webkit-scrollbar-track:active {
+    background: #333333;
+  }
+
+  .rdw-option-active {
+    background-color: rgba(0,0,0,0.15);
+    & > img {
+      opacity: 1;
+    }
+  }
+
+  .rdw-option-wrapper {
+    box-shadow: none !important;
+    transition: all 250ms ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+  }
+
+  .rdw-option-disabled {
+    transition: all 250ms ease-in-out;
+
+    &:hover {
+      cursor: default;
+      transform: scale(1);
+    }
+  }
+}

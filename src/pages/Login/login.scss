@@ -1,0 +1,36 @@
+.login {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .content {
+    width: 100%;
+    max-width: 315px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 4px;
+    form {
+      display: flex;
+      flex-direction: column;
+      margin: 30px 10px;
+      justify-content: center;
+      align-items: center;
+      input {
+        width: 100%;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding-left: 10px;
+        margin-bottom: 8px;
+        height: 32px;
+      }
+      span {
+        color: #dc3545;
+        align-self: flex-start;
+        margin: 0 0 10px;
+      }
+    }
+  }
+}
