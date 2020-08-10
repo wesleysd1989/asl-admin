@@ -142,13 +142,17 @@ const Users = () => {
   const loading = useSelector(state => state.auth.loading);
   const { id } = useSelector(state => state.user.profile);
   const handleSubmit = data => {
-    const newbirth = formatDate(
-      parseDateISO(data.birth, 'dd/MM/yyyy'),
-      'yyyy-MM-dd',
-    );
-    const newData = { ...data, birth: newbirth, type: toNumber(data.type) };
-    const { name, email, password, phone, birth, type } = newData;
-    dispatch(signUpRequest(name, email, password, phone, birth, type));
+    try {
+      const newbirth = formatDate(
+        parseDateISO(data.birth, 'dd/MM/yyyy'),
+        'yyyy-MM-dd',
+      );
+      const newData = { ...data, birth: newbirth, type: toNumber(data.type) };
+      const { name, email, password, phone, birth, type } = newData;
+      dispatch(signUpRequest(name, email, password, phone, birth, type));
+    } catch (error) {
+      toast.error('Error, please check the information and try again.');
+    }
   };
 
   const formdata = {
@@ -341,7 +345,7 @@ const Users = () => {
                               <Input
                                 name="birth"
                                 type="text"
-                                placeholder="Date of birth"
+                                placeholder="Date of birth - dd/mm/yyyy"
                                 required
                               />
                             )}

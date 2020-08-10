@@ -181,7 +181,7 @@ const User = () => {
                       <Button
                         color="success"
                         onClick={() => {
-                          history.push('/accounts/clients');
+                          history.push('/accounts/users');
                         }}
                       >
                         Voltar

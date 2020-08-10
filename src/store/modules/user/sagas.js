@@ -37,9 +37,9 @@ export function* updateProfile({ payload }) {
       });
       yield put(updateProfileSuccess(response.data));
     }
-    toast.success('Perfil atualizado com sucesso.');
+    toast.success('Profile updated successfully.');
   } catch (err) {
-    toast.error('Falha na atualização do perfil, verifique seus dados');
+    toast.error('Profile update failed, check your data');
   }
 }
 

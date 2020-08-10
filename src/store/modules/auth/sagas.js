@@ -19,7 +19,7 @@ export function* signIn({ payload }) {
 
     history.push('/dashboard');
   } catch (err) {
-    toast.error('Falha na autenticação, verifique seus dados');
+    toast.error('Authentication failed, check your data');
     yield put(signFailure());
   }
 }
@@ -27,7 +27,7 @@ export function* signIn({ payload }) {
 export function* signUp({ payload }) {
   try {
     const { name, email, password, phone, birth, type } = payload;
-    yield call(api.post, '/users', {
+    const response = yield call(api.post, '/users', {
       name,
       email,
       password,
@@ -36,11 +36,11 @@ export function* signUp({ payload }) {
       type,
       group: 1,
     });
-    toast.success('Usuário criado com sucesso.');
-    history.push('/dashboard');
+    toast.success('User created successfully.');
+    history.push(`/accounts/user/${response.data.id}`);
   } catch (err) {
     if (err.response.data.message === 'The email is already in use') {
-      toast.error('E-mail já cadastrado.');
+      toast.error('The email is already in use.');
       yield put(signFailure());
     } else {
       toast.error(err.response.data.message);
