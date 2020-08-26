@@ -116,7 +116,7 @@ const Commemoratives = () => {
       );
       setData(newList.data.commemorative);
       toast.success('Data Comemorativa criado com sucesso.');
-      history.push(`/commemoratives/${response.data.id}`);
+      history.push(`/commemorative-date/${response.data.id}`);
     } catch (error) {
       toast.error('Não foi possivel criar data Comemorativa.');
     }
