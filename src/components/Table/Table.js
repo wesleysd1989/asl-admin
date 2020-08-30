@@ -69,7 +69,7 @@ Table.propTypes = {
 };
 
 Table.defaultProps = {
-  placeholderInput: 'Pesquisa por e-mail',
+  placeholderInput: 'Search by email',
 };
 
 export default Table;

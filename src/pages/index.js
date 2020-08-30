@@ -7,6 +7,7 @@ import User from './User';
 import Users from './Users';
 import Commemoratives from './Commemoratives';
 import Commemorative from './Commemorative';
+import Events from './Events';
 
 export {
   Login,
@@ -17,4 +18,5 @@ export {
   Users,
   Commemoratives,
   Commemorative,
+  Events,
 };

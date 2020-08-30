@@ -22,5 +22,10 @@ export default {
       url: '/commemorative-date',
       icon: 'icon-calendar',
     },
+    {
+      name: 'Event',
+      url: '/events',
+      icon: 'icon-envelope-letter',
+    },
   ],
 };

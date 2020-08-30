@@ -5,6 +5,7 @@ import {
   User,
   Commemoratives,
   Commemorative,
+  Events,
 } from '../../pages';
 
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
     name: 'Commemorative detail',
     component: Commemorative,
   },
+  { path: '/events', name: 'Events', component: Events },
 ];
 
 export default routes;

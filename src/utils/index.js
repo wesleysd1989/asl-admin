@@ -1,5 +1,6 @@
 import { format, parse, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import XLSX from 'xlsx';
 
 /**
  * `capitalize` aplica upercase na primeira letra da palavra enviada
@@ -295,4 +296,13 @@ export const yesOrNo = data => {
     return 'SIM';
   }
   return 'NAO';
+};
+
+/* generate an array of column objects */
+export const make_cols = refstr => {
+  const o = [];
+  const C = XLSX.utils.decode_range(refstr).e.c + 1;
+  for (let i = 0; i < C; i += 1)
+    o[i] = { name: XLSX.utils.encode_col(i), key: i };
+  return o;
 };

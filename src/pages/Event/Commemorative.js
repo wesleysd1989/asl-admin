@@ -11,8 +11,8 @@ import api from '../../services/api';
 import { ImageUploading } from '../../components';
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
-  description: Yup.string().required('Description is required'),
+  name: Yup.string().required('O nome é obrigatório'),
+  description: Yup.string().required('description is required'),
 });
 
 const maxNumber = 1;
@@ -24,7 +24,7 @@ const Commemorative = () => {
   const [description, setDescription] = useState('');
   const [deleteIds, setDeleteIds] = useState([]);
 
-  const fetchCommemorative = async () => {
+  const fetchProduct = async () => {
     try {
       setLoading(true);
       const response = await api.get(`/commemoratives/${id}`);
@@ -33,16 +33,16 @@ const Commemorative = () => {
       setDescription(response.data.commemorative.description);
     } catch (error) {
       toast.error(
-        'It was not possible to access information on the anniversary card.',
+        'Não foi possível acessar informações do cartao de data comemorativa.',
       );
-      history.push('/commemorative-date');
+      history.push('/commemoratives');
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchCommemorative();
+    fetchProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -61,10 +61,10 @@ const Commemorative = () => {
       data.append('excluded_images', deleteIds.toString());
 
       await api.put(`/commemoratives/${id}`, data);
-      toast.success('Successful date updated.');
+      toast.success('Data comemorativa atualizada com sucesso.');
       history.push('/commemorative-date');
     } catch (error) {
-      toast.error('It was not possible to update a date.');
+      toast.error('Não foi possivel atualizar data comemorativa.');
     }
   };
 
@@ -94,7 +94,7 @@ const Commemorative = () => {
                       alignItems: 'center',
                     }}
                   >
-                    <b>Loading...</b>
+                    <b>Carregando</b>
                   </div>
                 ) : (
                   <>
@@ -108,7 +108,7 @@ const Commemorative = () => {
                           label="Nome"
                           name="name"
                           type="text"
-                          placeholder="Name of commemorative date"
+                          placeholder="Nome do produto"
                           required
                         />
                       </div>
@@ -134,9 +134,7 @@ const Commemorative = () => {
                         </Col>
                       </Row>
                       <div className="button-submit">
-                        <Button color="primary">
-                          Update commemorative date
-                        </Button>
+                        <Button color="primary">Atualizar Produto</Button>
                       </div>
                     </Form>
                     <div className="button-submit">
@@ -146,7 +144,7 @@ const Commemorative = () => {
                           history.push('/commemorative-date');
                         }}
                       >
-                        Back
+                        Voltar
                       </Button>
                     </div>
                   </>

@@ -12,7 +12,7 @@ import { Table, Modal, ImageUploading } from '../../components';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
-  description: Yup.string().required('description is required'),
+  description: Yup.string().required('Description is required'),
 });
 
 const maxNumber = 1;
@@ -33,7 +33,7 @@ const Commemoratives = () => {
     const response = await api.get(
       `/commemoratives?page=${page}&qtdPage=${perPage}&search=${query}`,
     );
-    setData(response.data.commemorative);
+    setData(response.data.commemoratives);
     setTotalRows(response.data.total);
     setLoadTable(false);
   };
@@ -48,23 +48,23 @@ const Commemoratives = () => {
     const response = await api.get(
       `/commemoratives?page=${page}&qtdPage=${newPerPage}&search=${query}`,
     );
-    setData(response.data.commemorative);
+    setData(response.data.commemoratives);
     setPerPage(newPerPage);
     setLoadTable(false);
   };
 
-  const deleteProduct = async id => {
+  const deleteCommemorative = async id => {
     try {
       const response = await api.delete(`/commemoratives/${id}`);
       const newList = await api.get(
         `/commemoratives?page=${pageActive}&qtdPage=${perPage}&search=${query}`,
       );
-      setData(newList.data.commemorative);
+      setData(newList.data.commemoratives);
       if (response.data.message === 'Commemorative deleted successfully.') {
-        toast.success('Data comemorativa excluida com sucesso.');
+        toast.success('Commemorative date successfully deleted.');
       }
     } catch (error) {
-      toast.error('Não foi possivel excluir Data comemorativa.');
+      toast.error('It was not possible to exclude Commemorative date.');
     }
   };
 
@@ -79,7 +79,7 @@ const Commemoratives = () => {
     const response = await api.get(
       `/commemoratives?page=1&qtdPage=${perPage}&search=${input}`,
     );
-    setData(response.data.commemorative);
+    setData(response.data.commemoratives);
     setTotalRows(response.data.total);
     setLoadTable(false);
   }, 500);
@@ -114,11 +114,11 @@ const Commemoratives = () => {
       const newList = await api.get(
         `/commemoratives?page=${pageActive}&qtdPage=${perPage}&search=${query}`,
       );
-      setData(newList.data.commemorative);
-      toast.success('Data Comemorativa criado com sucesso.');
+      setData(newList.data.commemoratives);
+      toast.success('Commemorative Date successfully created.');
       history.push(`/commemorative-date/${response.data.id}`);
     } catch (error) {
-      toast.error('Não foi possivel criar data Comemorativa.');
+      toast.error('It was not possible to create a commemorative date.');
     }
   };
 
@@ -129,18 +129,18 @@ const Commemoratives = () => {
       sortable: false,
     },
     {
-      name: 'Nome',
+      name: 'Name',
       selector: 'name',
       sortable: false,
     },
     {
-      name: 'Descrição',
+      name: 'Description',
       selector: 'description',
       sortable: false,
       cell: row => <div>{row.description}</div>,
     },
     {
-      name: 'Ações',
+      name: 'Actions',
       selector: 'actions',
       sortable: false,
       cell: row => (
@@ -169,9 +169,9 @@ const Commemoratives = () => {
 
   const contentModaldelete = () => (
     <div>
-      Deseja realmente excluir produto?
+      Do you really want to delete commemorative date?
       <br />
-      <b>Observação:</b> uma vez excluido não será possível reverter a exclusão.
+      <b>Note:</b> once deleted it will not be possible to revert the deletion.
     </div>
   );
 
@@ -223,9 +223,7 @@ const Commemoratives = () => {
                     </Col>
                   </Row>
                   <div className="button-submit">
-                    <Button color="primary">
-                      Cadastrar commemorative date
-                    </Button>
+                    <Button color="primary">Register commemorative date</Button>
                   </div>
                 </Form>
               </CardBody>
@@ -247,15 +245,15 @@ const Commemoratives = () => {
         showModal={showModal}
         confirmButton={() => {
           toggle('delete');
-          deleteProduct(idToDelete);
+          deleteCommemorative(idToDelete);
         }}
         cancelButton={() => {
           toggle('delete');
         }}
-        title="Excluir produto"
+        title="Delete commemorative date"
         content={contentModaldelete}
-        firstBtnTitle="Excluir"
-        secondBtnTitle="Cancelar"
+        firstBtnTitle="Delete"
+        secondBtnTitle="Cancel"
       />
     </div>
   );
