@@ -12,7 +12,6 @@ import XLSX from 'xlsx';
 import history from '../../services/history';
 import api from '../../services/api';
 import { Table, Modal } from '../../components';
-import { parseDateISO } from '../../utils';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('O nome é obrigatório'),
@@ -30,8 +29,6 @@ const Events = () => {
   const [pageActive, setPageActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [idToDelete, setIdToDelete] = useState(0);
-  const [dataFile, setDataFile] = useState([]);
-  const [cols, setCols] = useState([]);
   const SheetJSFT = [
     'xlsx',
     'xlsb',
@@ -204,6 +201,28 @@ const Events = () => {
     </div>
   );
 
+  const convertToJson = (csv) => {
+    var lines = csv.split("\n");
+
+    var result = [];
+
+    var headers = lines[0].split(",");
+
+    for (var i = 1; i < lines.length; i++) {
+      var obj = {};
+      var currentline = lines[i].split(",");
+
+      for (var j = 0; j < headers.length; j++) {
+        obj[headers[j]] = currentline[j];
+      }
+
+      result.push(obj);
+    }
+
+    //return result; //JavaScript object
+    return JSON.stringify(result, null, 2); //JSON
+  }
+
   const handleFile = event => {
     const file = event.target.files[0];
     /* Boilerplate to set up FileReader */
@@ -221,9 +240,11 @@ const Events = () => {
       const wsname = wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
       /* Convert array of arrays */
+      //const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
       const data = XLSX.utils.sheet_to_json(ws);
       /* Update state */
-      console.log(JSON.stringify(data, null, 2));
+      console.log(JSON.stringify(data, null, 2))
+      // console.log(convertToJson(data));
       // setDataFile(data);
       //setCols(make_cols(ws['!ref']));
     };
