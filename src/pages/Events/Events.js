@@ -5,8 +5,6 @@ import * as Yup from 'yup';
 import debounce from 'lodash/debounce';
 import { toast } from 'react-toastify';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import XLSX from 'xlsx';
 
 import history from '../../services/history';
@@ -14,9 +12,8 @@ import api from '../../services/api';
 import { Table, Modal } from '../../components';
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('O nome é obrigatório'),
-  commemorative_id: Yup.string().required('depois escrevo'),
-  employees: Yup.array().required('escrevo depois'),
+  name: Yup.string().required('Name is required'),
+  commemorative_id: Yup.string().required('Commemorative date is required'),
 });
 
 const Events = () => {
@@ -28,6 +25,7 @@ const Events = () => {
   const [commemorativeList, setCommemorativeList] = useState([]);
   const [pageActive, setPageActive] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const [dataFile, setDataFile] = useState([]);
   const [idToDelete, setIdToDelete] = useState(0);
   const SheetJSFT = [
     'xlsx',
@@ -52,7 +50,7 @@ const Events = () => {
     'htm',
   ]
     .map(function(x) {
-      return '.' + x;
+      return `.${x}`;
     })
     .join(',');
 
@@ -132,10 +130,15 @@ const Events = () => {
       const imageCommemorative = await api.get(
         `/commemoratives/${parseFloat(data.commemorative_id)}`,
       );
+      let employees;
+      if (dataFile.length > 0) {
+        employees = dataFile.filter(employee => employee.full_name && employee);
+      }
       const body = {
         name: data.name,
-        commemorative_id: parseFloat(data.product_id),
-        image_id: imageCommemorative?.data?.commemorative?.image[0]?.id || 1,
+        commemorative_id: parseFloat(data.commemorative_id),
+        image_id: imageCommemorative.data.commemorative.image[0].id || 1,
+        employees,
       };
       const response = await api.post('/events', body);
       const newList = await api.get(
@@ -173,6 +176,7 @@ const Events = () => {
         <div>
           <Button
             color="danger"
+            disabled={row.status !== 'PENDING'}
             onClick={() => {
               setIdToDelete(row.id);
               toggle();
@@ -201,28 +205,6 @@ const Events = () => {
     </div>
   );
 
-  const convertToJson = (csv) => {
-    var lines = csv.split("\n");
-
-    var result = [];
-
-    var headers = lines[0].split(",");
-
-    for (var i = 1; i < lines.length; i++) {
-      var obj = {};
-      var currentline = lines[i].split(",");
-
-      for (var j = 0; j < headers.length; j++) {
-        obj[headers[j]] = currentline[j];
-      }
-
-      result.push(obj);
-    }
-
-    //return result; //JavaScript object
-    return JSON.stringify(result, null, 2); //JSON
-  }
-
   const handleFile = event => {
     const file = event.target.files[0];
     /* Boilerplate to set up FileReader */
@@ -236,17 +218,10 @@ const Events = () => {
         type: rABS ? 'binary' : 'array',
         bookVBA: true,
       });
-      /* Get first worksheet */
       const wsname = wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
-      /* Convert array of arrays */
-      //const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
       const data = XLSX.utils.sheet_to_json(ws);
-      /* Update state */
-      console.log(JSON.stringify(data, null, 2))
-      // console.log(convertToJson(data));
-      // setDataFile(data);
-      //setCols(make_cols(ws['!ref']));
+      setDataFile(data);
     };
 
     if (rABS) {
@@ -257,10 +232,10 @@ const Events = () => {
   };
 
   const handleChange = event => {
-    const files = event.target.files;
+    const { files } = event.target;
     if (files && files[0]) {
-      handleFile(event)
-    };
+      handleFile(event);
+    }
   };
 
   return (

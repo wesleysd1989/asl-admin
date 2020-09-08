@@ -5,35 +5,33 @@ import { Button, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 import * as Yup from 'yup';
 import InputMask from 'react-input-mask';
 
+import { toast } from 'react-toastify';
+import history from '../../services/history';
 import AvatarInput from './AvatarInput';
 import { updateProfileRequest } from '../../store/modules/user/actions';
 import { parseDateISO, formatDate, toNumber } from '../../utils';
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('O nome é obrigatório'),
+  name: Yup.string().required('Name is required'),
   oldPassword: Yup.string()
-    .min(6, 'No mínimo 6 caracteres')
-    .required('O password é obrigatório'),
+    .min(6, 'At least 6 characters')
+    .required('Password is required'),
   password: Yup.string().oneOf(
     [Yup.ref('confirmPassword'), null],
-    'As senhas devem ser iguais, por favor verifique.',
+    'Passwords must be the same, please check.',
   ),
   confirmPassword: Yup.string().oneOf(
     [Yup.ref('password'), null],
-    'As senhas devem ser iguais, por favor verifique.',
+    'Passwords must be the same, please check.',
   ),
   phone: Yup.string()
-    .min(13, 'Telefone invalido')
-    .required('O telefone é obrigatório'),
-  birth: Yup.string().required('A data é obrigatório'),
+    .min(13, 'Invalid phone')
+    .required('Phone is required'),
+  birth: Yup.string().required('Date is required'),
   avatar_id: Yup.number(),
 });
 
-const types = [
-  { id: 1, title: 'Administrador' },
-  { id: 2, title: 'Contador' },
-  { id: 3, title: 'Suporte' },
-];
+const types = [{ id: 1, title: 'Administrador' }];
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -48,22 +46,13 @@ const Profile = () => {
   };
 
   const handleSubmit = data => {
-    const newbirth = formatDate(
-      parseDateISO(data.birth, 'dd/MM/yyyy'),
-      'yyyy-MM-dd',
-    );
-    const newData = { ...data, birth: newbirth, type: toNumber(data.type) };
-    const {
-      name,
-      oldPassword,
-      password,
-      confirmPassword,
-      phone,
-      birth,
-      avatar_id,
-    } = newData;
-    dispatch(
-      updateProfileRequest(
+    try {
+      const newbirth = formatDate(
+        parseDateISO(data.birth, 'dd/MM/yyyy'),
+        'yyyy-MM-dd',
+      );
+      const newData = { ...data, birth: newbirth, type: toNumber(data.type) };
+      const {
         name,
         oldPassword,
         password,
@@ -71,8 +60,23 @@ const Profile = () => {
         phone,
         birth,
         avatar_id,
-      ),
-    );
+      } = newData;
+      dispatch(
+        updateProfileRequest(
+          name,
+          oldPassword,
+          password,
+          confirmPassword,
+          phone,
+          birth,
+          avatar_id,
+        ),
+      );
+    } catch (error) {
+      toast.error('Could not update user information.');
+    } finally {
+      history.push('/');
+    }
   };
   return (
     <div className="animated fadeIn">

@@ -38,10 +38,10 @@ const Confirme = () => {
       <Content>
         {confirmed ? (
           <span className="text-center">
-            Parabéns conta confirmada com sucesso.{' '}
+            Congratulations account successfully confirmed.{' '}
           </span>
         ) : (
-          <span>Erro ao confirmar conta, tente novamente mais tarde.</span>
+          <span>Error verifying account, please try again later.</span>
         )}
         <Button
           color="primary"
@@ -50,7 +50,7 @@ const Confirme = () => {
             history.push('/login');
           }}
         >
-          {loading ? 'Carregando ...' : 'Login'}
+          {loading ? 'Loading ...' : 'Login'}
         </Button>
       </Content>
     </Container>

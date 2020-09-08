@@ -8,9 +8,9 @@ import { signInRequest } from '../../store/modules/auth/actions';
 
 const schema = Yup.object().shape({
   email: Yup.string()
-    .email('Insira um e-mail válido')
-    .required('O e-mail é obrigatório'),
-  password: Yup.string().required('O password é obrigatório'),
+    .email('Enter a valid email')
+    .required('E-mail is required'),
+  password: Yup.string().required('Password is required'),
 });
 
 const Login = () => {
@@ -28,7 +28,7 @@ const Login = () => {
           <Input name="email" type="text" placeholder="E-mail" />
           <Input name="password" type="password" placeholder="Password" />
           <Button color="primary" block>
-            {loading ? 'Carregando ...' : 'Login'}
+            {loading ? 'Loading ...' : 'Login'}
           </Button>
         </Form>
       </div>

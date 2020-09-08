@@ -233,6 +233,7 @@ const Commemoratives = () => {
       </div>
       <Table
         title="Comemorative dates"
+        placeholderInput="Search by name"
         onChange={onChange}
         columns={columns}
         data={data}

@@ -8,6 +8,7 @@ import Users from './Users';
 import Commemoratives from './Commemoratives';
 import Commemorative from './Commemorative';
 import Events from './Events';
+import Event from './Event';
 
 export {
   Login,
@@ -19,4 +20,5 @@ export {
   Commemoratives,
   Commemorative,
   Events,
+  Event,
 };

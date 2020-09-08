@@ -1,6 +1,6 @@
 {
-  "name": "commemorative",
+  "name": "event",
   "version": "0.0.0",
   "private": true,
-  "main": "./Commemorative.js"
+  "main": "./Event.js"
 }

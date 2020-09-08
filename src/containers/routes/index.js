@@ -6,6 +6,7 @@ import {
   Commemoratives,
   Commemorative,
   Events,
+  Event,
 } from '../../pages';
 
 const routes = [
@@ -25,7 +26,8 @@ const routes = [
     name: 'Commemorative detail',
     component: Commemorative,
   },
-  { path: '/events', name: 'Events', component: Events },
+  { path: '/events', exact: true, name: 'Events', component: Events },
+  { path: '/events/:id', name: 'Event', component: Event },
 ];
 
 export default routes;

@@ -12,14 +12,10 @@ import history from '../../services/history';
 import { parseDateISO, formatDate } from '../../utils';
 
 const schema = Yup.object().shape({
-  type: Yup.number().required('O tipo é obrigatório'),
+  type: Yup.number().required('Type is required'),
 });
 
-const types = [
-  { id: 1, title: 'Administrador' },
-  { id: 2, title: 'Contador' },
-  { id: 3, title: 'Suporte' },
-];
+const types = [{ id: 1, title: 'Administrator' }];
 
 const User = () => {
   const { id } = useParams();
@@ -44,7 +40,7 @@ const User = () => {
         birth: response.data.user.birth,
       });
     } catch (error) {
-      toast.error('Não foi possível acessar informações do usuário.');
+      toast.error('Could not access user information.');
       history.push('/');
     } finally {
       setLoading(false);
@@ -59,11 +55,11 @@ const User = () => {
     try {
       const response = await api.put(`/users/${id}`, data);
       if (response.data.message === 'User updated successfully.') {
-        toast.success('Usuário atualizado com sucesso.');
+        toast.success('User updated successfully.');
         history.push('/accounts/users');
       }
     } catch (error) {
-      toast.error('Não foi possível atualizar a informação do usuário.');
+      toast.error('Could not update user information.');
       history.push('/');
     }
   };
@@ -81,13 +77,13 @@ const User = () => {
                 height: '100vh',
               }}
             >
-              <span>Carregando...</span>
+              <span>Loading...</span>
             </div>
           ) : (
             <Col xs="12" sm="12">
               <Card>
                 <CardHeader>
-                  <strong>Perfil do usuário</strong>
+                  <strong>User profile</strong>
                 </CardHeader>
                 <CardBody>
                   <>
@@ -98,10 +94,10 @@ const User = () => {
                     >
                       <div className="input-form">
                         <Input
-                          label="Nome"
+                          label="Name"
                           name="name"
                           type="text"
-                          placeholder="Nome Completo"
+                          placeholder="Full name"
                           disabled
                         />
                       </div>
@@ -130,7 +126,7 @@ const User = () => {
                                   <Input
                                     name="phone"
                                     type="text"
-                                    placeholder="Telefone"
+                                    placeholder="Phone"
                                     id="phone"
                                     disabled
                                   />
@@ -141,13 +137,13 @@ const User = () => {
                         </Col>
                         <Col xs="12" md="4">
                           <div className="input-form">
-                            <Select label="Tipo" name="type" options={types} />
+                            <Select label="Type" name="type" options={types} />
                           </div>
                         </Col>
                         <Col xs="12" md="4">
                           <div className="input-form">
                             <label className="label-form" htmlFor="birth">
-                              Data de nascimento
+                              Date of birth
                               <InputMask
                                 maskChar={null}
                                 mask="99/99/9999"
@@ -164,7 +160,7 @@ const User = () => {
                                   <Input
                                     name="birth"
                                     type="text"
-                                    placeholder="Data de nascimento"
+                                    placeholder="Date of birth - dd/mm/yyyy"
                                     disabled
                                   />
                                 )}
@@ -174,7 +170,7 @@ const User = () => {
                         </Col>
                       </Row>
                       <div className="button-submit">
-                        <Button color="primary">Alterar</Button>
+                        <Button color="primary">Update profile</Button>
                       </div>
                     </Form>
                     <div className="button-submit">
@@ -184,7 +180,7 @@ const User = () => {
                           history.push('/accounts/users');
                         }}
                       >
-                        Voltar
+                        Back
                       </Button>
                     </div>
                   </>
