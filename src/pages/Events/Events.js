@@ -13,8 +13,14 @@ import { Table, Modal } from '../../components';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
+  type: Yup.number().required('Type is required'),
   commemorative_id: Yup.string().required('Commemorative date is required'),
 });
+
+const types = [
+  { id: 1, title: 'Birthday', value: 'BIRTHDAY' },
+  { id: 2, title: 'Send', value: 'SEND' },
+];
 
 const Events = () => {
   const [data, setData] = useState([]);
@@ -49,7 +55,7 @@ const Events = () => {
     'html',
     'htm',
   ]
-    .map(function(x) {
+    .map(x => {
       return `.${x}`;
     })
     .join(',');
@@ -136,6 +142,7 @@ const Events = () => {
       }
       const body = {
         name: data.name,
+        type: types[data.type - 1].value,
         commemorative_id: parseFloat(data.commemorative_id),
         image_id: imageCommemorative.data.commemorative.image[0].id || 1,
         employees,
@@ -169,6 +176,11 @@ const Events = () => {
       sortable: false,
     },
     {
+      name: 'Type',
+      selector: 'type',
+      sortable: false,
+    },
+    {
       name: 'Actions',
       selector: 'actions',
       sortable: false,
@@ -176,7 +188,7 @@ const Events = () => {
         <div>
           <Button
             color="danger"
-            disabled={row.status !== 'PENDING'}
+            disabled={row.status === 'FINISHED'}
             onClick={() => {
               setIdToDelete(row.id);
               toggle();
@@ -266,6 +278,16 @@ const Events = () => {
                             label="Commemorative date"
                             name="commemorative_id"
                             options={commemorativeList}
+                            required
+                          />
+                        </div>
+                      </Col>
+                      <Col xs="12" md="3">
+                        <div className="input-form">
+                          <Select
+                            label="Type"
+                            name="type"
+                            options={types}
                             required
                           />
                         </div>

@@ -13,9 +13,15 @@ import { Table, Modal } from '../../components';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
+  type: Yup.number().required('Type is required'),
   commemorative_id: Yup.string().required('Commemorative date is required'),
   status: Yup.number().required('Status is required'),
 });
+
+const types = [
+  { id: 1, title: 'Birthday', value: 'BIRTHDAY' },
+  { id: 2, title: 'Send', value: 'SEND' },
+];
 
 const Event = () => {
   const { id } = useParams();
@@ -60,9 +66,11 @@ const Event = () => {
       const status = statusEvent.find(
         status => status.title === response.data.event.status,
       );
-      setDisabledForm(status.title !== 'PENDING');
+      setDisabledForm(status.title === 'FINISHED');
+      const type = types.find(type => type.value === response.data.event.type);
       setFormdata({
         name: response.data.event.name,
+        type: type.id,
         commemorative_id: 2,
         status: status.id,
       });
@@ -99,6 +107,7 @@ const Event = () => {
       );
       const body = {
         name: data.name,
+        type: types[data.type - 1].value,
         commemorative_id: parseFloat(data.commemorative_id),
         image_id: imageCommemorative.data.commemorative.image[0].id || 1,
         status: updateStatusEvent[data.status - 1].title,
@@ -271,6 +280,16 @@ const Event = () => {
                                   disabledForm ? statusEvent : updateStatusEvent
                                 }
                                 disabled={disabledForm}
+                              />
+                            </div>
+                          </Col>
+                          <Col xs="12" md="3">
+                            <div className="input-form">
+                              <Select
+                                label="Type"
+                                name="type"
+                                options={types}
+                                required
                               />
                             </div>
                           </Col>
